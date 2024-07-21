@@ -21,3 +21,12 @@ h1 {
   p {
     background-color:rgb(231, 196, 79);
   }
+
+  .custom-blue-button {
+    background-color: #007bff;
+    color: white;
+  }
+  .input-group-container {
+    max-width: 300px;
+    margin-right: 20px; /* Ajuste a margem conforme necessário */
+  }

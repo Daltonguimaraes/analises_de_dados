@@ -7,13 +7,21 @@
   <title>{% block title %}{% endblock %} Home</title>
   <!-- <link rel="stylesheet" href="/static/style.css"> -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
   <div>
-    <h2 class="escolhido">Dashboards</h2>
-    <p>Hello, World!</p>
-    <p>Welcome home page!</p>
-    <p>This page will allocated dashboards and analyses</p>
+    <div class="container"></div>
+      <h2 class="escolhido">Dashboards</h2>
+      <p>Hello, World!</p>
+      <p>Welcome home page!</p>
+      <p>This page will allocated dashboards and analyses</p>
+      <!-- <button type="button" class="btn btn-primary">Primary</button> -->
+      <div class="input-group mb-3 float-end input-group-container">
+        <input type="text" class="form-control" placeholder="Tickets" aria-label="Tickets" aria-describedby="button-addon2">
+        <button class="btn btn-outline-primary" type="button" id="button-addon2">Buscar</button>
+      </div>
+    </div>
   </div>
 </body>
 </html>
