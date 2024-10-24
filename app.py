@@ -1,52 +1,29 @@
-import pandas as pd
 from flask import Flask, render_template
-import dash
-from dash import dcc
-from dash import html
-from dash.dependencies import Input, Output
-import plotly.express as px
+from models.shearch import Getdata
+from models.read_data import Lerdados
 
-# Carregar os dados do arquivo CSV e verificar o cabeçalho
-df = pd.read_csv('dados_adj_close.csv', delimiter=';')
-print(df.head())  # Adicione esta linha para verificar o cabeçalho e os dados
+app = Flask(__name__)
 
-# Verificar e ajustar o nome das colunas, se necessário
-df.columns = df.columns.str.strip()  # Remover espaços em branco dos nomes das colunas
+# Cria a lista inicial de ações e obtém os dados
+inv = Getdata(list_actions=['^BVSP', 'CSMG3.SA', 'BBAS3.SA', 'CPFE3.SA', 'BRAP4.SA', 'BBSE3.SA'])
+inv.date()
+inv.tickets()
+inv.symbols()
 
-# Convertendo a coluna 'Date' para datetime e configurando como índice
-df['Date'] = pd.to_datetime(df['Date'])
-df.set_index('Date', inplace=True)
+# Obter lista de ações através do Lerdados
+ler_dados = Lerdados()
+tickets, dados_acoes = ler_dados.listactions()
+df_transformado = ler_dados.transformacao(tickets, dados_acoes)
 
-# Inicializar o servidor Flask
-server = Flask(__name__)
+@app.route('/')
+def index():
+    # Exibir a lista de ações disponíveis
+    return render_template('index.html', tickets=tickets)
 
-# Inicializar o aplicativo Dash
-app = dash.Dash(__name__, server=server, url_base_pathname='/dashboard/')
+@app.route('/transform')
+def transform():
+    # Exibir a transformação dos dados
+    return render_template('transform.html', data=df_transformado.to_dict(orient='records'))
 
-# Definir o layout do dashboard
-app.layout = html.Div([
-    dcc.Dropdown(
-        id='dropdown-grafico',
-        options=[{'label': col, 'value': col} for col in df.columns if col != 'Date'],
-        value=df.columns[1]  # Selecionar a segunda coluna como valor padrão
-    ),
-    dcc.Graph(id='grafico')
-])
-
-# Criar os callbacks para interatividade
-@app.callback(
-    Output('grafico', 'figure'),
-    [Input('dropdown-grafico', 'value')]
-)
-def update_graph(column_name):
-    fig = px.line(df, x=df.index, y=column_name, title=f'Gráfico de {column_name}')
-    return fig
-
-# Criar a rota do Flask
-@server.route('/')
-def home():
-    return render_template('index.html', dash_script=app.index_string)
-
-# Executar o servidor
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)

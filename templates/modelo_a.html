@@ -1,0 +1,39 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Ações e Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/styles.css') }}">
+</head>
+<body>
+    <h1>Bem-vindo ao Portal de Consulta de Ações e Dashboard</h1>
+    
+    <!-- Seção de consulta de ações -->
+    <section>
+        <h2>Consulta de Ações na Bovespa</h2>
+        <form action="/getdata" method="POST">
+            <label for="tickers">Insira os tickers das ações (separados por vírgula):</label><br>
+            <input type="text" id="tickers" name="tickers" required><br><br>
+
+            <label for="start_date">Data de Início:</label><br>
+            <input type="date" id="start_date" name="start_date" required><br><br>
+
+            <label for="end_date">Data de Fim:</label><br>
+            <input type="date" id="end_date" name="end_date" required><br><br>
+
+            <button type="submit">Consultar e Baixar Dados</button>
+        </form>
+    </section>
+    
+    <hr>
+
+    <!-- Link para o dashboard -->
+    <section>
+        <h2>Acessar o Dashboard Interativo</h2>
+        <p>Para visualizar gráficos e análises interativas, acesse o dashboard abaixo:</p>
+        <a href="/dashboard" class="button">Acessar o Dashboard</a>
+    </section>
+</body>
+</html>

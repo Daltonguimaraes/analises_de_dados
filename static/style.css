@@ -14,8 +14,11 @@ h1 {
     background-color:blue;
   }
   
-  .escolhido{
-    background-color:green;
+  .header{
+    background-color:rgb(120, 209, 112);
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
+    padding: 5px 10px;
   }
   
   p {
@@ -27,6 +30,53 @@ h1 {
     color: white;
   }
   .input-group-container {
-    max-width: 300px;
-    margin-right: 20px; /* Ajuste a margem conforme necessário */
+    max-width: 30%;
+    margin-right: 5%; /* Ajuste a margem conforme necessário */
   }
+
+
+  /* assets/styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #333;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
