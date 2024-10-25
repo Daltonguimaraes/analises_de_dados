@@ -6,12 +6,21 @@
     <title>Lista de Ações</title>
 </head>
 <body>
-    <h1>Lista de Ações</h1>
+    <h1>Insira a Lista de Ações</h1>
+    <form method="POST">
+        <label for="actions_list">Digite as ações separadas por vírgula:</label><br>
+        <input type="text" id="actions_list" name="actions_list" placeholder="Ex: ^BVSP, CSMG3.SA, BBAS3.SA">
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if tickets %}
+    <h2>Lista de Ações</h2>
     <ul>
         {% for ticket in tickets %}
             <li>{{ ticket }}</li>
         {% endfor %}
     </ul>
     <a href="{{ url_for('transform') }}">Ver Transformação dos Dados</a>
+    {% endif %}
 </body>
 </html>
