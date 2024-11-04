@@ -45,6 +45,7 @@ anasises_de_dados/
     ├── templates/              # Arquivos HTML para as views
     │   └── index.html          # Página de lista de ações
     │   └── transform.html      # Página para exibir transformação dos dados
+    │   └── dashboard.html      # Página para exibir gráficos dos dados
     ├── static/                 # Arquivos estáticos (CSS, JS, imagens)
     └── data/                   # Diretório para armazenar arquivos CSV
         └── symbols/            # Subdiretório para salvar arquivos obtidos de `Getdata`
