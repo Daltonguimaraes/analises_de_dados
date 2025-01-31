@@ -49,7 +49,7 @@ anasises_de_dados/
     ├── static/                 # Arquivos estáticos (CSS, JS, imagens)
     └── data/                   # Diretório para armazenar arquivos CSV
         └── symbols/            # Subdiretório para salvar arquivos obtidos de `Getdata`
-
+        └── dados_adj_close.csv # Arquivo tratado para análises    
 
 ```
 ### 2. models
