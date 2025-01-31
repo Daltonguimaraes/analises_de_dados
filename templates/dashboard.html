@@ -5,13 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dash</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom styles for this template-->
+    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>Gráfico de Linhas das Ações</h1>
-    <a href="{{ url_for('index') }}">
-        <i class="fa-solid fa-house" style="color: #007bff; font-size: 30px; margin-left: 10px;"></i>
-    </a>
+    <div>
+        <a href="{{ url_for('index') }}">
+            <i class="fa-solid fa-house" style="color: #007bff; font-size: 30px; margin-left: 10px;"></i>
+        </a>
+    </div>
+    
+    <hr>
+
+    <!-- Exibe numeros de ativos -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nº de Ativos</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ num_colunas }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-chart-column text-gray-600 fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
     <!-- Renderiza o gráfico Plotly -->
-    {{ graph_html | safe }}
+    {{ graph_price_html | safe }}
+
+    <!-- Gráfico de Barras -->
+    <h3>Gráfico de Barras Empilhadas</h3>
+    {{ graph_yield_html | safe }}
 </body>
 </html>

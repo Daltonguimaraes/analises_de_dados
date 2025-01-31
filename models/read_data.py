@@ -27,5 +27,5 @@ class Lerdados:
             df_resultado = df_resultado.merge(df_filtrado, on='Date', how='outer')
 
         print(df_resultado.tail(6))
-        df_resultado.to_csv('data/dados_adj_close.csv', sep=';', encoding='utf-8', index=True)
+        df_resultado.to_csv('./data/dados_adj_close.csv', sep=';', encoding='utf-8', index=True)
         return df_resultado
