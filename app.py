@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from models.shearch import Getdata
+from models.search import Getdata
 from models.read_data import Lerdados
 import plotly.express as px
 import pandas as pd
@@ -21,6 +21,11 @@ def index():
         inv.date()
         inv.tickets()
         inv.symbols()
+
+        # Obter lista de açoes pelo modulo lerdados
+        ler_dados = Lerdados()
+        tickets, dados_acoes = ler_dados.listactions()
+        ler_dados.transformacao(tickets, dados_acoes)
 
         # Redireciona para a página de transformação após a consulta
         return redirect(url_for('dashboard'))
