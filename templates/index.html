@@ -1,26 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Ações</title>
-</head>
-<body>
-    <h1>Insira a Lista de Ações</h1>
-    <form method="POST">
-        <label for="actions_list">Digite as ações separadas por vírgula:</label><br>
-        <input type="text" id="actions_list" name="actions_list" placeholder="Ex: ^BVSP, CSMG3.SA, BBAS3.SA">
-        <button type="submit">Enviar</button>
-    </form>
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+<!-- Title page -->
+{% block title %}Lista de Ações{% endblock %}
+
+<!-- Header page-->
+{% block header %}{% endblock %}
+
+{% block content %}
+    <!-- Linha de separação -->
+    <div><hr></div>
+    <div class="container">
+        <!-- Conteúdo da página -->
+        <p>"E Deus os abençoou, e disse: crescei e multiplicai-vos, e enchei a terra, 
+            e sujeitai-a, e dominai sobre os peixes do mar e sobre as aves do céu, e a
+            tudo o que se move sobre a terra, e em que há alma vivente, para que tenham
+             que comer"</p>
+        <p>Gênesis 1:28</p>
+    
+        <!-- Linha de separação -->
+        <div><hr></div>
+        
+        <!-- Formulário -->
+        <div class="container text-center">
+            <div class="row align-items-center">
+              <div class="col">
+                <div>
+                    <form method="POST">
+                        <div class="mb-1">
+                            <label for="actions_list">Digite as ações separadas por vírgula:</label>
+                            <input type="text" id="actions_list" name="actions_list" placeholder="Ex: ^BVSP, CSMG3.SA, BBAS3.SA">
+                            <button type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Linha de separação -->
+    <div><hr></div>
 
     {% if tickets %}
-    <h2>Lista de Ações</h2>
-    <ul>
-        {% for ticket in tickets %}
-            <li>{{ ticket }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('transform') }}">Ver Transformação dos Dados</a>
+        <!-- Exibe a lista de ações enviadas -->
+        <h2>Lista de Ações</h2>
+        <ul>
+            {% for ticket in tickets %}
+                <li>{{ ticket }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('transform') }}">
+            <button style="background-color: #007bff;">Ver Transformação dos Dados</button>
+        </a>
     {% endif %}
-</body>
-</html>
+{% endblock %}

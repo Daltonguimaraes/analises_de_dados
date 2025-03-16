@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home Page{% endblock %}</title>
+
+    <!-- Fonte personalizada -->
+    <link href="https://fonts.cdnfonts.com/css/source-sans-pro" rel="stylesheet">
+
+    <!-- Ícone da página -->
+    <link rel="icon" href="../static/favicon/icons8-web-analytics-16.png" type="image/x-icon">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="../static/style.css"/>
+
+
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <h1>{% block header %}Cabeçalho Padrão{% endblock %}</h1>
+    </header>
+
+    <!-- Conteúdo da Página -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>Dalton Carvalho Guimarães</p>
+    </footer>
+</body>
+</html>
