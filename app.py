@@ -27,6 +27,9 @@ def index():
         tickets, dados_acoes = ler_dados.listactions()
         ler_dados.transformacao(tickets, dados_acoes)
 
+        # Obter lista de dividendos pelo modulo lerdados
+        ler_dados.dividendos(tickets, dados_acoes)    
+
         # Redireciona para a página de transformação após a consulta
         return redirect(url_for('dashboard'))
     

@@ -29,3 +29,17 @@ class Lerdados:
         print(df_resultado.tail(6))
         df_resultado.to_csv('./data/dados_adj_close.csv', sep=';', encoding='utf-8', index=True)
         return df_resultado
+    
+    # Transformar os dados separando a coluna dividendos
+    def dividendos(self, tickets, dados_acoes):
+        df_resultado = pd.DataFrame({'Date': []})
+
+        for acoes in tickets:
+            df_filtrado = dados_acoes[dados_acoes['acao'] == acoes][['Date', 'Dividends']]
+            df_filtrado = df_filtrado.rename(columns={'Dividends': acoes})
+            df_resultado = df_resultado.merge(df_filtrado, on='Date', how='outer')
+
+        print(df_resultado.tail(6))
+        df_resultado.to_csv('./data/dados_dividendos.csv', sep=';', encoding='utf-8', index=True)
+        return df_resultado
+
