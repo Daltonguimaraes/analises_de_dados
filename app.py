@@ -64,16 +64,24 @@ def dashboard():
     )
 
     # Carrega o arquivo CSV
-    df_yield= pd.read_csv('./data/yield.csv', sep=';', encoding='utf-8')
+    df_yield= pd.read_csv('./data/dados_dividendos.csv', sep=';', encoding='utf-8')
 
-    # Cria um gráfico de barras empilhadas usando Plotly
+    # Cria um gráfico de barras empilhadas para dividendos usando Plotly
+    # Calcula a soma dos valores de cada coluna, excluindo 'Date'
+    soma_dividendos = df_yield.iloc[:, 3:].sum()
+
+    # Cria um DataFrame temporário para visualização
+    df_soma = soma_dividendos.reset_index()
+    df_soma.columns = ['Ação', 'Soma dos Dividendos']
+
+    # Cria o gráfico de barras
     fig_yield = px.bar(
-        df_yield,
-        x=df_yield.columns[-1],  # Coluna de datas
-        y='Ativo',  # Dividendos Últimos 12 Meses
-        title='Gráfico de Barras Empilhadas das Ações'
+        df_soma,
+        x='Soma dos Dividendos',
+        y='Ação',
+        title='Soma dos Dividendos por Ação no Período'
     )
-
+    
     # Converte os gráficos para HTML com nomes distintos
     graph_price_html = fig_price.to_html(full_html=False)
     graph_yield_html = fig_yield.to_html(full_html=False)

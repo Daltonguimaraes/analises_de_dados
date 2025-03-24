@@ -7,8 +7,38 @@ ENV/
 env.bak/
 venv.bak/
 
-# data
+# Data
 .data/
 data/
 *.csv
 *.json
+
+# Byte-compiled / optimized / DLL files
+models/__pycache__
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+logs/
+*.log
+nohup.out
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp and backup files
+*.swp
+*.bak
+*.tmp
+
+# Python dependencies
+Pipfile
+Pipfile.lock
+poetry.lock

@@ -1,56 +1,64 @@
-h1 {
-    background-color:red;
-    font-size: 100px;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  h2 {
-    background-color:yellow;
-    font-size: 100px;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  #primeiro {
-    background-color:blue;
-  }
-  
-  .header{
-    background-color:rgb(120, 209, 112);
-    font-family: 'Times New Roman', Times, serif;
-    overflow: hidden;
-    padding: 5px 10px;
-  }
-  
-  p {
-    background-color:rgb(231, 196, 79);
-  }
-
-  .custom-blue-button {
-    background-color: #007bff;
-    color: white;
-  }
-  .input-group-container {
-    max-width: 30%;
-    margin-right: 5%; /* Ajuste a margem conforme necessário */
-  }
-
-
-  /* assets/styles.css */
+/* body page */
 body {
+  background-color: #ececc1;
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f0f0f0;
+  margin: 20px 20px 20px 20px;
 }
 
-h1 {
-  color: #333;
+/* .container {
+  flex: 1;
+} */
+
+
+/* Conteúdo ocupa todo o espaço disponível */
+/* .main-content {
+  display: flex;
+  margin-top: 20%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+} */
+
+/* header page */
+.header {
+  height: 45px;
+    background: rgb(131,29,28);
+    background: linear-gradient(90deg, rgba(131,29,28,1) 2%, rgba(0,97,60,1) 96%);
+    color: #ffffff;
+    padding: 1px;
+    margin: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 8px;
+    font-style: normal;
+    text-align: center;
 }
+
+/*footer page*/
+.footer {
+  height: 45px;
+    background-color: #75a5db; 
+    color: #fff;
+    padding: 10px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: auto;
+    font-style: normal;
+    text-align: center;
+    margin-top: auto;  /* Garante que o rodapé fique no final */
+}
+
+
 
 form {
   background-color: #fff;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
 label {
@@ -58,14 +66,24 @@ label {
   margin-top: 10px;
 }
 
-input[type="text"],
+input[type="text"] {
+  width: 100%; /* Garante que o input ocupe toda a largura do formulário */
+  padding: 10px;
+  font-size: 1.2rem; /* Aumenta o tamanho do texto */
+  height: 50px; /* Ajusta a altura */
+  margin-left: 0; /* Garante alinhamento à esquerda */
+  margin-bottom: 15px; /* Adiciona espaço entre os inputs */
+  margin-top: 15px; /* Adiciona espaço entre os inputs */
+  box-sizing: border-box; /* Evita que padding aumente o tamanho total */
+}
 input[type="date"] {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  max-width: 400px; /* Mantém um tamanho controlado */
+  padding: 8px; /* Reduz o padding para um visual mais equilibrado */
+  margin: 10px auto; /* Mantém um espaçamento uniforme */
   border: 1px solid #ccc;
   border-radius: 3px;
+  display: block;
 }
 
 button {
@@ -79,4 +97,19 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+/* Ajuste da imagem para não ultrapassar os limites da tela */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;  /* Garante que a imagem não ultrapasse a largura */
+  height: auto;    /* Mantém a proporção */
+  max-height: 300px; /* Limita a altura para manter o layout organizado */
 }
