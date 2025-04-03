@@ -49,11 +49,12 @@ def transform():
 # Painel de gráficos com dados
 @app.route('/dashboard')
 def dashboard():
+    # Tópico preços
     # Carrega o arquivo CSV
     df_price = pd.read_csv('./data/dados_adj_close.csv', sep=';', encoding='utf-8')
     
     #contar as colunas (ativos)
-    num_colunas = len(df_price.columns) - 2  # Subtrai 2 para ignorar a coluna de data, e índice "IBOV"
+    num_colunas = len(df_price.columns) - 2 # Subtrai 2 para ignorar a coluna de data, e índice "IBOV"
     
     # Cria um gráfico de linhas usando Plotly
     fig_price = px.area(
@@ -63,6 +64,7 @@ def dashboard():
         title='Gráfico de Linhas das Ações'
     )
 
+    # Tópico dividendos
     # Carrega o arquivo CSV
     df_yield= pd.read_csv('./data/dados_dividendos.csv', sep=';', encoding='utf-8')
 
