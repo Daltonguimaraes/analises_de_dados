@@ -8,8 +8,8 @@ env.bak/
 venv.bak/
 
 # Data
-.data/*.csv
-data/*.csv
+..data/
+data/
 *.csv
 *.json
 
