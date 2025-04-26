@@ -21,6 +21,8 @@ def index():
         inv.date()
         inv.tickets()
         inv.symbols()
+        inv.getipca()
+        inv.getselic()
 
         # Obter lista de açoes pelo modulo lerdados
         ler_dados = Lerdados()
