@@ -72,3 +72,35 @@ class Getdata:
         else:
             print(f'Erro na requisição: {response.status_code}')
             return pd.DataFrame()
+        
+    def getselic(self):
+        # Código da série da selic
+        codigo_serie = 4189
+
+        # Datas: dataInicial deve ser MENOR que dataFinal
+        dataInicial = datetime.date(2024, 4, 2)  # Exemplo fixo, igual ao da sua URL
+        dataFinal = datetime.date(2025, 4, 2)    # Exemplo fixo
+
+        # Converte para formato dd/mm/yyyy exigido pela API
+        dataInicial_str = dataInicial.strftime('%d/%m/%Y')
+        dataFinal_str = dataFinal.strftime('%d/%m/%Y')
+
+        # Monta URL
+        url = (
+        f'https://api.bcb.gov.br/dados/serie/bcdata.sgs.{codigo_serie}/dados?formato=json&dataInicial={dataInicial_str}&dataFinal={dataFinal_str}')
+
+        # Requisição
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            dados = response.json()
+            if dados:
+                df_selic = pd.DataFrame(dados)
+                df_selic.to_csv('./data/dados_selic.csv', sep=';', encoding='utf-8', index=False)
+                return df_selic
+            else:
+                print("A API retornou uma lista vazia.")
+                return pd.DataFrame()
+        else:
+            print(f'Erro na requisição: {response.status_code}')
+            return pd.DataFrame()
