@@ -22,6 +22,7 @@ def index():
         inv.tickets()
         inv.symbols()
         inv.getipca()
+        inv.getselic()
 
         # Obter lista de açoes pelo modulo lerdados
         ler_dados = Lerdados()
@@ -57,6 +58,21 @@ def dashboard():
     #contar as colunas (ativos)
     num_colunas = len(df_price.columns) - 2 # Subtrai 2 para ignorar a coluna de data, e índice "IBOV"
     
+    # Carrega o arquivo dado_ipca.csv
+    df_ipca = pd.read_csv('./data/dados_ipca.csv', sep=';', encoding='utf-8')
+
+    # Última data do arquivo dado_ipca.csv
+    last_date = df_ipca['data'].iloc[-1]
+    # Último valor do IPCA
+    last_ipca = df_ipca['valor'].iloc[-1]
+    
+    # Carrega o arquivo dado_selic.csv
+    df_selic = pd.read_csv('./data/dados_selic.csv', sep=';', encoding='utf-8')
+    # Última data do arquivo dado_selic.csv
+    last_date_selic = df_selic['data'].iloc[-1]
+    # Último valor da Selic
+    last_selic = df_selic['valor'].iloc[-1]
+
     # Cria um gráfico de linhas usando Plotly
     fig_price = px.area(
         df_price,
@@ -94,7 +110,9 @@ def dashboard():
         'dashboard.html',
         graph_price_html=graph_price_html,
         graph_yield_html=graph_yield_html,
-        num_colunas=num_colunas
+        num_colunas=num_colunas,
+        last_ipca=last_ipca,
+        last_selic=last_selic
     )
 
 if __name__ == '__main__':
