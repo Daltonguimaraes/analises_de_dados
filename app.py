@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models.search import Getdata
 from models.read_data import Lerdados
+from models.analise import analises, plot_markowitz
 import plotly.express as px
 import pandas as pd
-
 
 app = Flask(__name__)
 
@@ -83,7 +83,7 @@ def dashboard():
 
     # Tópico dividendos
     # Carrega o arquivo CSV
-    df_yield= pd.read_csv('./data/dados_dividendos.csv', sep=';', encoding='utf-8')
+    df_yield = pd.read_csv('./data/dados_dividendos.csv', sep=';', encoding='utf-8')
 
     # Cria um gráfico de barras empilhadas para dividendos usando Plotly
     # Calcula a soma dos valores de cada coluna, excluindo 'Date'
@@ -115,5 +115,36 @@ def dashboard():
         last_selic=last_selic
     )
 
+# Painel de análise de ativos
+@app.route('/analysis', methods=['GET', 'POST'])
+def analysis():
+    allocation = None
+    leftover = None
+    total_portfolio_value = None
+    markowitz_plot = None
+
+    if request.method == 'POST':
+        try:
+            # Receber o valor total do portfólio do formulário HTML
+            total_portfolio_value = float(request.form['portfolio_value'])
+
+            # Carregar os dados de carteira
+            carteira = pd.read_csv('./data/dados_adj_close.csv', sep=';', encoding='utf-8', parse_dates=['Date'], index_col='Date')
+
+            # Chamar a função de análise do script analise.py
+            allocation, leftover, total_value = analises(carteira, total_portfolio_value)
+
+            # Chamar a função de plotagem do script analise.py
+            markowitz_plot = plot_markowitz(carteira, list(allocation.keys()))
+
+            # Renderizar com os dados calculados
+            return render_template('analysis.html', allocation=allocation, leftover=leftover, total_portfolio_value=total_value, markowitz_plot=markowitz_plot)
+        except Exception as e:
+            return render_template('analysis.html', error_message="Erro ao processar a análise: " + str(e))
+
+    # GET request: apenas renderizar o formulário
+    return render_template('analysis.html', allocation=allocation, leftover=leftover, total_portfolio_value=total_portfolio_value, markowitz_plot=markowitz_plot)
+
+# Roda o servidor Flask
 if __name__ == '__main__':
     app.run(debug=True)

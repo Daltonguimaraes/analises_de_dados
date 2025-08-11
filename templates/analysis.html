@@ -1,0 +1,44 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+<!-- Title page -->
+{% block title %}Dashboard{% endblock %}
+
+<!-- Header page-->
+{% block header %}{% endblock %}
+
+<!-- Conteúdo da página -->
+{% block content %}
+
+<hr>
+<h1>Calculadora de Alocação de Ativos</h1>
+    <form method="POST">
+        <label for="portfolio_value">Digite o valor total do portfólio: </label>
+        <input type="text" id="portfolio_value" name="portfolio_value" required>
+        <button type="submit">Calcular</button>
+    </form>
+    
+    {% if allocation %}
+    
+        <hr>
+        <h1>Resultados da Análise de Portfólio</h1>
+
+        <h2>Alocação de Ativos:</h2>
+        <ul>
+            {% for ativo, quantidade in allocation.items() %}
+                <li>{{ ativo }}: {{ quantidade }} ações</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Fundos restantes: R${{ leftover | round(2) }}</h3>
+        <h3>Valor total do portfólio: R${{ total_portfolio_value }}</h3>
+    {% endif %}
+
+<hr>
+
+{% if markowitz_plot %}
+    <h3>Fronteira Eficiente de Markowitz</h3>
+    {{ markowitz_plot | safe }}
+{% endif %}
+
+{% endblock %}

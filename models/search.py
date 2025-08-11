@@ -3,6 +3,9 @@ import pandas as pd
 import yfinance as yf
 import os
 import requests
+from curl_cffi import requests
+
+session = requests.Session(impersonate="chrome")
 
 class Getdata:  
     def __init__(self, period="1y", interval="1d", list_actions=None):
@@ -22,7 +25,7 @@ class Getdata:
     def symbols(self):
         symbols_data = []
         for acao in self.list_actions:
-            ticker = yf.Ticker(acao)
+            ticker = yf.Ticker(acao, session=session)
             dados = ticker.history(period=self.period, interval=self.interval, auto_adjust=False)
             dados = dados.assign(acao=acao)
             symbols_data.append(dados)

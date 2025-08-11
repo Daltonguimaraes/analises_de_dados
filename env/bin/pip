@@ -1,4 +1,4 @@
-#!/home/dalton/Documentos/investimentos/projetos/data_analyst/env/bin/python3
+#!/home/dalton/Projetos/flask/analises_de_dados/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
