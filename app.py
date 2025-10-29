@@ -130,6 +130,16 @@ def analysis():
 
             # Carregar os dados de carteira
             carteira = pd.read_csv('./data/dados_adj_close.csv', sep=';', encoding='utf-8', parse_dates=['Date'], index_col='Date')
+            # Calcular último preço de cada ativo (excluindo IBOV, se existir)
+            ultima_linha = carteira.iloc[-1]
+            ultimos_precos = ultima_linha.drop(labels=['IBOV'], errors='ignore').to_dict()
+
+            # Carrega o arquivo dado_selic.csv
+            df_selic = pd.read_csv('./data/dados_selic.csv', sep=';', encoding='utf-8')
+            # Última data do arquivo dado_selic.csv
+            last_date_selic = df_selic['data'].iloc[-1]
+            # Último valor da Selic
+            last_selic = df_selic['valor'].iloc[-1]
 
             # Chamar a função de análise do script analise.py
             allocation, leftover, total_value = analises(carteira, total_portfolio_value)
@@ -138,7 +148,7 @@ def analysis():
             markowitz_plot = plot_markowitz(carteira, list(allocation.keys()))
 
             # Renderizar com os dados calculados
-            return render_template('analysis.html', allocation=allocation, leftover=leftover, total_portfolio_value=total_value, markowitz_plot=markowitz_plot)
+            return render_template('analysis.html', allocation=allocation, leftover=leftover, total_portfolio_value=total_value, markowitz_plot=markowitz_plot, last_selic=last_selic, ultimos_precos=ultimos_precos)
         except Exception as e:
             return render_template('analysis.html', error_message="Erro ao processar a análise: " + str(e))
 

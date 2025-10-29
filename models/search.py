@@ -4,6 +4,7 @@ import yfinance as yf
 import os
 import requests
 from curl_cffi import requests
+from dateutil.relativedelta import relativedelta
 
 session = requests.Session(impersonate="chrome")
 
@@ -48,8 +49,8 @@ class Getdata:
         codigo_serie = 16121
 
         # Datas: dataInicial deve ser MENOR que dataFinal
-        dataInicial = datetime.date(2024, 4, 2)  # Exemplo fixo, igual ao da sua URL
-        dataFinal = datetime.date(2025, 4, 2)    # Exemplo fixo
+        dataInicial = (datetime.datetime.now() - relativedelta(months=12)).date()
+        dataFinal = datetime.datetime.now().date()
 
         # Converte para formato dd/mm/yyyy exigido pela API
         dataInicial_str = dataInicial.strftime('%d/%m/%Y')
@@ -61,7 +62,7 @@ class Getdata:
         f'?formato=json&dataInicial={dataInicial_str}&dataFinal={dataFinal_str}')
 
         # Requisição
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
 
         if response.status_code == 200:
             dados = response.json()

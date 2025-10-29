@@ -19,16 +19,32 @@
     </form>
     
     {% if allocation %}
-    
         <hr>
         <h1>Resultados da Análise de Portfólio</h1>
 
         <h2>Alocação de Ativos:</h2>
-        <ul>
-            {% for ativo, quantidade in allocation.items() %}
-                <li>{{ ativo }}: {{ quantidade }} ações</li>
-            {% endfor %}
-        </ul>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Ativo</th>
+                    <th>Quantidade (ações)</th>
+                    <th>Selic (%)</th>
+                    <th>Preços (R$)</th>
+                    <th>Valor Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ativo, quantidade in allocation.items() %}
+                    <tr>
+                        <td>{{ ativo }}</td>
+                        <td>{{ quantidade }}</td>
+                        <td>{{ last_selic }}</td>
+                        <td>{{ ultimos_precos[ativo] | round(2) }}</td>
+                        <td>{{ (ultimos_precos[ativo] * quantidade) | round(2) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
         <h3>Fundos restantes: R${{ leftover | round(2) }}</h3>
         <h3>Valor total do portfólio: R${{ total_portfolio_value }}</h3>
