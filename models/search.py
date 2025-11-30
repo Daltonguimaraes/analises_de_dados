@@ -79,7 +79,7 @@ class Getdata:
         
     def getselic(self):
         # Código da série da selic
-        codigo_serie = 433
+        codigo_serie = 1178
 
         # Datas: dataInicial deve ser MENOR que dataFinal
         dataInicial = datetime.date(2024, 4, 2)  # Exemplo fixo, igual ao da sua URL
