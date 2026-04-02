@@ -35,38 +35,28 @@ Para criar um projeto Flask usando a estrutura Model-View-Template (MVT), siga o
 ### 1. Estrutura do Projeto
 
 ```
-anasises_de_dados/
-├── app.py                                              # Arquivo principal para iniciar a aplicação Flask
-├── data                                                # Arquivos para análise
-│   ├── dados_dividendos.csv
-│   └── symbols
-│       ├── 02-04-2025
-│       │   └── symbols-20_13_58.csv
-│       └── 23-03-2025
-│           └── symbols-21_22_29.csv
-├── models
-│   ├── read_data.py                                    # Lógica para ler dados do CSV e transformá-los
-│   ├── scandir.py                                      # Lógica para buscar dados usando a lista de ações
-│   └── search.py                                       # Lógica para escanear diretórios e encontrar arquivos CSV
-├── README.md                                           # Documentação do projeto
-├── requirements.txt                                    # Bibliotecas
-├── static
-│   ├── css
-│   │   ├── sb-admin-2.css
-│   │   └── sb-admin-2.min.css
-│   ├── favicon
-│   │   ├── icons8-analytics-16.png
-│   │   ├── icons8-financial-analytics-16.png
-│   │   └── icons8-web-analytics-16.png
-│   ├── image
-│   │   ├── 10806755_4575463.jpg
-│   │   └── 72836188_2308-w018-n002-2119B-p15-2119.jpg
-│   └── style.css
-└── templates                                          # Arquivos HTML para as views
-    ├── base.html                                      # Template modelo
-    ├── dashboard.html                                 # Página para exibir gráficos dos dados
-    ├── index.html                                     # Página de lista de ações
-    └── transform.html                                 # Página para exibir transformação dos dados  
+projeto_flask_data/
+├── app/                        # Núcleo da Aplicação Flask
+│   ├── __init__.py             # Inicializa o App e extensões (SQLAlchemy)
+│   ├── controllers/            # Rotas e lógica de entrada/saída
+│   │   └── data_controller.py  # Onde você dispara os jobs do Dagster
+│   ├── models/                 # Modelos do SQLAlchemy (Tabelas do App)
+│   ├── services/               # Camada de Integração (Onde fica a lógica Dagster/dbt)
+│   │   └── dagster_service.py  # Funções que chamam a API do Dagster
+│   ├── static/                 # CSS, JS, Imagens
+│   └── templates/              # Visões (HTML com Jinja2)
+│
+├── data_pipeline/              # Onde vive a "Engenharia de Dados"
+│   ├── dagster/                # Definições de Assets e Ops do Dagster
+│   └── dbt_project/            # Seu projeto dbt completo
+│       ├── models/             # Transformações SQL do dbt
+│       └── dbt_project.yml
+│
+├── tests/                      # Testes unitários e de integração
+├── config.py                   # Variáveis de ambiente e chaves de API
+├── requirements.txt            # Dependências Python
+└── run.py                      # Ponto de entrada para rodar o Flask
+  
 
 ```
 
