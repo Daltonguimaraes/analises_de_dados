@@ -144,8 +144,11 @@ def analysis():
             # Chamar a função de análise do script analise.py
             allocation, leftover, total_value = analises(carteira, total_portfolio_value)
 
+            # Definir colunas de ativos a partir do dataframe (evita mismatch com allocation)
+            colunas_ativos = [c for c in carteira.columns if c not in ['IBOV', '^BVSP', 'Unnamed: 0']]
+
             # Chamar a função de plotagem do script analise.py
-            markowitz_plot = plot_markowitz(carteira, list(allocation.keys()))
+            markowitz_plot = plot_markowitz(carteira, colunas_ativos, risk_free_rate=last_selic / 100)
 
             # Renderizar com os dados calculados
             return render_template('analysis.html', allocation=allocation, leftover=leftover, total_portfolio_value=total_value, markowitz_plot=markowitz_plot, last_selic=last_selic, ultimos_precos=ultimos_precos)

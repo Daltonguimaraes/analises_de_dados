@@ -49,7 +49,7 @@ def analises(carteira, total_portfolio_value):
     print(f'Desvio padrão anual: {desvio_padrao_portfolio:.6f}')
 
     # --- Risco não sistemático ---
-    sub = variancias[0] - np.sum(variancias[1:])
+    sub = variancias.iloc[0] - np.sum(variancias.iloc[1:])
     risco_nao_sistematico = variancia_portfolio - sub
     print(f'Subtração: {sub:.6f}')
     print(f'Risco não sistemático: {risco_nao_sistematico:.6f}')
@@ -86,16 +86,29 @@ def analises(carteira, total_portfolio_value):
     
     return allocation, leftover, total_portfolio_value
 
-def plot_markowitz(carteira, colunas_ativos):
-    mu = mean_historical_return(carteira, colunas_ativos)
-    S = CovarianceShrinkage(carteira, colunas_ativos).ledoit_wolf()
+def plot_markowitz(carteira, colunas_ativos, risk_free_rate=0.0):
+    # Use apenas colunas numéricas dos ativos e limpe valores inválidos
+    prices = carteira[colunas_ativos].apply(pd.to_numeric, errors='coerce')
+    prices = prices.replace([np.inf, -np.inf], np.nan).dropna(how='any')
 
-    ef = EfficientFrontier(mu, S)
+    mu = mean_historical_return(prices, frequency=246)
+    S = CovarianceShrinkage(prices, frequency=246).ledoit_wolf()
 
+    # Descobrir limites viáveis de risco para evitar erros de "minimum volatility"
     risks = []
     returns = []
 
-    for target_volatility in np.linspace(0.05, 0.50, 50):
+    ef_min = EfficientFrontier(mu, S)
+    ef_min.min_volatility()
+    _, min_vol, _ = ef_min.portfolio_performance(verbose=False)
+
+    # Usar o maior desvio padrão de um ativo como limite superior seguro
+    max_vol = float(np.sqrt(np.max(np.diag(S.values))))
+
+    if max_vol <= min_vol:
+        max_vol = min_vol * 1.5
+
+    for target_volatility in np.linspace(min_vol * 1.001, max_vol, 50):
         ef = EfficientFrontier(mu, S)
         try:
             ef.efficient_risk(target_volatility)
@@ -103,9 +116,18 @@ def plot_markowitz(carteira, colunas_ativos):
             print(f"Volatilidade: {target_volatility:.2f} | Retorno: {ret:.4f} | Risco: {std:.4f}")
             returns.append(ret)
             risks.append(std)
-        except:
-            print(f"Erro para volatilidade {target_volatility:.2f}: {ef}")
+        except Exception as e:
+            print(f"Erro para volatilidade {target_volatility:.2f}: {e}")
             continue
+
+    # Portfólio ótimo (máximo Sharpe) para construir a reta do portfólio ótimo (CAL)
+    ef_tan = EfficientFrontier(mu, S)
+    try:
+        ef_tan.max_sharpe(risk_free_rate=risk_free_rate)
+        ret_tan, vol_tan, _ = ef_tan.portfolio_performance(risk_free_rate=risk_free_rate, verbose=False)
+    except Exception as e:
+        ret_tan, vol_tan = None, None
+        print(f"Erro ao calcular portfólio ótimo (max Sharpe): {e}")
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(
@@ -117,12 +139,25 @@ def plot_markowitz(carteira, colunas_ativos):
         marker=dict(size=5, color='blue')
     ))
 
+    # Reta do portfólio ótimo (Capital Allocation Line)
+    if ret_tan is not None and vol_tan is not None and vol_tan > 0:
+        max_risk = max(risks) if risks else vol_tan
+        cal_x = np.linspace(0, max_risk, 50)
+        slope = (ret_tan - risk_free_rate) / vol_tan
+        cal_y = risk_free_rate + slope * cal_x
+        fig.add_trace(go.Scatter(
+            x=cal_x,
+            y=cal_y,
+            mode='lines',
+            name='Reta do Portfólio Ótimo (CAL)',
+            line=dict(color='red', width=2, dash='dash')
+        ))
+
     fig.update_layout(
         title='Fronteira Eficiente de Markowitz',
         xaxis_title='Risco (Desvio Padrão)',
         yaxis_title='Retorno Esperado',
         template='plotly_white',
-        width=800,
         height=500
     )
-    return fig.to_html(full_html=False)
+    return fig.to_html(full_html=False, include_plotlyjs='cdn', config={'responsive': True})

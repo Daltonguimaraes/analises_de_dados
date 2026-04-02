@@ -18,7 +18,7 @@
         <button type="submit">Calcular</button>
     </form>
     
-    {% if allocation %}
+{% if allocation %}
         <hr>
         <h1>Resultados da Análise de Portfólio</h1>
 
@@ -51,6 +51,12 @@
     {% endif %}
 
 <hr>
+
+{% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+{% endif %}
 
 {% if markowitz_plot %}
     <h3>Fronteira Eficiente de Markowitz</h3>
