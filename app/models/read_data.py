@@ -1,4 +1,4 @@
-from models.scandir import Getfiles
+from app.models.scandir import Getfiles
 import pandas as pd
 
 class Lerdados:
@@ -42,4 +42,3 @@ class Lerdados:
         print(df_resultado.tail(6))
         df_resultado.to_csv('./data/dados_dividendos.csv', sep=';', encoding='utf-8', index=True)
         return df_resultado
-

@@ -88,31 +88,30 @@ graph TD;
 ```
 
 
-### 2. models
+### 2. app/models
     Contém a lógica para carregar e manipular dados a partir de um arquivo CSV.
 
-#### 2.1 Arquivo models/read_data.py
+#### 2.1 Arquivo app/models/read_data.py
     Este arquivo é responsável por carregar e transformar dados dos arquivos CSV:
 
-#### 2.2 Arquivo models/shearch.py
+#### 2.2 Arquivo app/models/search.py
     Este arquivo é responsável por buscar dados de ações através da API Yahoo Finance e salvar em CSV:
 
-#### 2.3 Arquivo models/read_data.py
+#### 2.3 Arquivo app/models/scandir.py
     Este arquivo é responsável por listar arquivos CSV encontrados em subdiretórios de um caminho especificado. Aqui está uma explicação detalhada do código
 
 ### 3. Arquivo app.py
-    Este arquivo será o principal da aplicação Flask e importará a classes Getdata e Lerdados:
+    Este arquivo carrega a aplicação Flask via factory e importa os módulos do pacote app:
     
 ```
-    from flask import Flask, render_template
-    from models.shearch import Getdata
-    from models.read_data import Lerdados
+    from app import create_app
+    app = create_app()
 ```
 
 
 
 ### 4. Templates
-    São arquivos HTML em templates/ que mostram os dados para o usuário.
+    São arquivos HTML em app/templates/ que mostram os dados para o usuário.
 #### 4.1 Arquivo index.html
     Template destinado a dataviz:
 
@@ -120,6 +119,5 @@ graph TD;
     Template destinado a descrição de dados e tabelas:
 
 
-#### 5. Arquivo de Estilos (static/style.css)
+#### 5. Arquivo de Estilos (app/static/style.css)
     Se você quiser adicionar um arquivo de estilos CSS e customizações.
-

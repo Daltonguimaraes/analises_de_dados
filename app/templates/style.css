@@ -1,0 +1,97 @@
+/* app/views/static/css/style.css */
+/* body page */
+body {
+  background-color: #ececc1;
+  font-family: Arial, sans-serif;
+  margin: 20px 20px 20px 20px;
+}
+
+/* header page */
+.header {
+  height: 45px;
+    background: rgb(131,29,28);
+    background: linear-gradient(90deg, rgba(131,29,28,1) 2%, rgba(0,97,60,1) 96%);
+    color: #ffffff;
+    padding: 1px;
+    margin: 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 8px;
+    font-style: normal;
+    text-align: center;
+}
+
+/*footer page*/
+.footer {
+  height: 75px;
+    background-color: #2c68ad; 
+    color: #fff;
+    padding: 10px 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: auto;
+    font-style: normal;
+    text-align: center;
+    margin-top: auto;  /* Garante que o rodapé fique no final */
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: 100%; /* Garante que o input ocupe toda a largura do formulário */
+  padding: 10px;
+  font-size: 1.2rem; /* Aumenta o tamanho do texto */
+  height: 50px; /* Ajusta a altura */
+  margin-left: 0; /* Garante alinhamento à esquerda */
+  margin-bottom: 15px; /* Adiciona espaço entre os inputs */
+  margin-top: 15px; /* Adiciona espaço entre os inputs */
+  box-sizing: border-box; /* Evita que padding aumente o tamanho total */
+}
+input[type="date"] {
+  width: 100%;
+  max-width: 400px; /* Mantém um tamanho controlado */
+  padding: 8px; /* Reduz o padding para um visual mais equilibrado */
+  margin: 10px auto; /* Mantém um espaçamento uniforme */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: block;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Ajuste da imagem para não ultrapassar os limites da tela */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;  /* Garante que a imagem não ultrapasse a largura */
+  height: auto;    /* Mantém a proporção */
+  max-height: 300px; /* Limita a altura para manter o layout organizado */
+}

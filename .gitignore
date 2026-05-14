@@ -13,6 +13,15 @@ data/
 *.csv
 *.json
 
+# dbt
+target/
+dbt_packages/
+packages/
+
+# Dagster
+.tmp_dagster_home*
+storage/
+
 # Byte-compiled / optimized / DLL files
 models/__pycache__
 __pycache__/
